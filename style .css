@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.side-bar{
+    height: 100vh;
+    width: 25vw;
+    border: 2px solid black;
+}
+#rainbow-image{
+    height: 10vh;
+    width: 5vw;
+    margin-left:10px ;
+}
+.header{
+    display: flex;
+}
+h2{
+    padding:10px 0px 0px 20px
+}
