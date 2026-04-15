@@ -29,8 +29,7 @@
         </div>
       </div>
       <h3>My Favorites</h3>
-
-      <div class="fav-item">
+      <!-- <div class="fav-item">
         Wellington
         <span>New Zealand</span>
       </div>
@@ -49,10 +48,10 @@
         Florida
         <span>USA</span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Add Button -->
-    <button class="add-btn">+ Add New</button>
+    <button class="add-btn" onclick="openModal()" >+ Add New</button>
     </div>
   </section>
   <section class="main">
@@ -123,6 +122,20 @@
     </div>
 
   </section>
+  <div class="modal" id="modal">
+
+    <div class="modal-content">
+        <h3>Add City</h3>
+
+        <input type="text" id="cityInput" placeholder="Enter city">
+
+        <p id="countryResult"></p>
+
+        <button onclick="addCity()">Add</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+
+</div>
   <script src="./script.js"></script>
 </body>
 
