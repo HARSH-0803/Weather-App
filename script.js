@@ -1,50 +1,18 @@
-function openModal() {
-    document.getElementById("modal").style.display = "flex";
-}
+let apiKey = "f8bbeae052c34abb92d151644261604";
 
-function closeModal() {
-    document.getElementById("modal").style.display = "none";
-}
-
-const apiKey = "YOUR_API_KEY";
-
-let inputBox = document.getElementById("cityInput");
-inputBox.addEventListener("input", async function() {
-    const city = this.value;
-
-    if (city.length < 3) return;
-
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY`;
+async function getWeather(city) {
+    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
 
     const res = await fetch(url);
     const data = await res.json();
 
     console.log(data);
 
-    if (data.cod === 200) {
-        document.getElementById("countryResult").innerText =
-            data.sys.country;
-    }else {
-        document.getElementById("countryResult").innerText = "Not found ❌";
-    }
-});
+    document.getElementById("temp").innerText = data.current.temp_c + "°C";
 
-function addCity() {
-    const city = document.getElementById("cityInput").value;
-    const country = document.getElementById("countryResult").innerText;
+    document.getElementById("condition").innerText = data.current.condition.text;
 
-    const favList = document.querySelector(".favorites");
-
-    const newCity = document.createElement("div");
-    newCity.classList.add("fav-item");
-
-    newCity.innerHTML = `
-        ${city}
-        <span>${country}</span>
-    `;
-
-    favList.appendChild(newCity);
-
-    closeModal();
+    document.getElementById("city").innerText = data.location.name;
 }
 
+getWeather("Delhi , India");
