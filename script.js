@@ -1,18 +1,42 @@
 let apiKey = "f8bbeae052c34abb92d151644261604";
 
-async function getWeather(city) {
-    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
-
-    const res = await fetch(url);
-    const data = await res.json();
+// Weather Function
+async function getWeather(city){
+    let url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    let response = await fetch(url);
+    let data = await response.json();
 
     console.log(data);
 
-    document.getElementById("temp").innerText = data.current.temp_c + "°C";
+    // Error Handling:
 
-    document.getElementById("condition").innerText = data.current.condition.text;
+    if(data.error){
+        alert("City Not Found");
+        return ;
+    }
 
-    document.getElementById("city").innerText = data.location.name;
+    // UI Update :
+
+    document.getElementById("temp").innerText = 
+    data.current.temp_c + "°C" ;
+
+    document.getElementById("condition").innerText = 
+    data.current.condition.text;
+
+    document.getElementById("city").innerText = 
+    data.location.name + ", " + data.location.country;
 }
 
-getWeather("Delhi , India");
+getWeather("Delhi, India");
+
+// Modal Function :
+
+function openModal(){
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+// Here From this code the country will be auto selected :
