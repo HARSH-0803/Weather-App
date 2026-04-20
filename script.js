@@ -1,22 +1,19 @@
 let apiKey = "f8bbeae052c34abb92d151644261604";
 
-// Weather Function
 async function getWeather(city) {
-    let url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
-    let response = await fetch(url);
-    let data = await response.json();
+
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=7`;
+    const res = await fetch(url);
+    const data = await res.json();
 
     console.log(data);
-
-    // Error Handling:
 
     if (data.error) {
         alert("City Not Found");
         return;
     }
 
-    // UI Update :
-
+    // ===== CURRENT =====
     document.getElementById("temp").innerText =
         Math.round(data.current.temp_c) + "°C";
 
@@ -25,10 +22,65 @@ async function getWeather(city) {
 
     document.getElementById("city").innerText =
         data.location.name + ", " + data.location.country;
+
+
+    // ===== WEEKLY =====
+    let weekly = document.getElementById("weekly");
+    weekly.innerHTML = "";
+
+    data.forecast.forecastday.forEach(day => {
+
+        let date = new Date(day.date);
+
+        let formattedDate = date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            weekday: "short"
+        });
+
+        let card = document.createElement("div");
+        card.classList.add("day-card");
+
+        card.innerHTML = `
+            <p>${formattedDate}</p>
+            <span>${Math.round(day.day.maxtemp_c)}° / ${Math.round(day.day.mintemp_c)}°</span>
+            <img src="https:${day.day.condition.icon}" width="25"/>
+        `;
+
+        weekly.appendChild(card);
+    });
+
+
+    // ===== HOURLY =====
+    let hourly = document.getElementById("hourly");
+    hourly.innerHTML = "";
+
+    let hours = data.forecast.forecastday[0].hour;
+    let currentHour = new Date().getHours();
+    let nextHours = [];
+
+    for(let i = 0; i < 8; i++){
+        nextHours.push(hours[(currentHour + i) % 24]);
+    }
+
+    nextHours.forEach(h => {
+
+        let time = new Date(h.time).getHours();
+        let formatted = time % 12 || 12;
+        let ampm = time >= 12 ? "PM" : "AM";
+
+        let card = document.createElement("div");
+        card.classList.add("hour-card");
+
+        card.innerHTML = `
+            <p>${formatted} ${ampm}</p>
+            <img src="https:${h.condition.icon}" width="30"/>
+            <span>${Math.round(h.temp_c)}°</span>
+        `;
+
+        hourly.appendChild(card);
+    });
 }
-
-getWeather("Vadodara, India");
-
 // Modal Function :
 
 function openModal() {
@@ -46,7 +98,7 @@ inputBox.addEventListener("input", async function () {
     let city = this.value;
     if (city.length < 3) return;
 
-    let url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    let url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=7`;
 
     let response = await fetch(url);
     let data = await response.json();
@@ -103,3 +155,5 @@ function addCity() {
 
     closeModal();
 }
+// default call
+getWeather("Vadodara, India");

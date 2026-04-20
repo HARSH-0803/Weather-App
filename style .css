@@ -269,6 +269,7 @@ h2 {
 }
 
 .modal-content {
+    backdrop-filter: blur(500px);
     background: #0f172a;
     padding: 20px;
     border-radius: 15px;
@@ -277,12 +278,9 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    color: #dceff8;
 }
-/* .fav-item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
+
 .delete-btn{
     background: transparent;
     border: none;
@@ -294,4 +292,33 @@ h2 {
 .BigBox{
     display: flex;
     justify-content: space-between;
+}
+
+.hour-card {
+    text-align: center;
+    color: white;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.hour-card img {
+    width: 35px;
+    height: 35px;
+}
+
+.hour-card p{
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.hour-card span{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.hourly {
+    backdrop-filter: blur(15px);
 }
