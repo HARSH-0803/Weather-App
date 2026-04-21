@@ -24,6 +24,36 @@ async function getWeather(city) {
         data.location.name + ", " + data.location.country;
 
 
+    // Day and Night Concept :
+
+    let iconBox = document.getElementById("weatherIcon");
+    if(data.current.is_day === 1){
+        iconBox.innerHTML = "☀️"
+    }
+    else{
+        iconBox.innerHTML = "🌙"
+    }
+
+
+    //Dynamic Background Change :
+
+    let main = document.querySelector(".main");
+    
+    let condition = data.current.condition.text.toLowerCase();
+
+    if(condition.includes("sun")){
+        main.style.background = "linear-gradient(135deg, #4facfe, #94a5a5)";
+    }
+    else if(condition.includes("rain")){
+        main.style.background = "linear.gradient(135deg, #4b6cb7, #182848 )";
+    }
+    else if(condition.includes("cloud")){
+        main.style.background = "linear-gradient(135deg, #757f9a, #d7dde8)"
+    }
+    else {
+        main.style.background = "linear-gradient(135deg, #0b1220, #0a0f1c)"
+    }
+
     // ===== WEEKLY =====
     let weekly = document.getElementById("weekly");
     weekly.innerHTML = "";

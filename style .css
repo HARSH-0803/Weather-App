@@ -322,3 +322,11 @@ h2 {
 .hourly {
     backdrop-filter: blur(15px);
 }
+
+.day {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.night {
+    background:linear-gradient(135deg, #0b1220, #0a0f1c)
+}
